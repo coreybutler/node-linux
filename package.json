@@ -1,0 +1,33 @@
+{
+  "name": "node-linux",
+  "version": "0.1.0",
+  "description": "Support daemon creation and management on Linux.",
+  "keywords": [
+    "ngn",
+    "linux",
+    "daemon",
+    "service",
+    "centos",
+    "redhat",
+    "debian",
+    "ubuntu"
+  ],
+  "author": "Corey Butler <corey@coreybutler.com>",
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "main": "lib/node-linux.js",
+  "dependencies": {
+    "optimist": "~0.4.0",
+    "mu2": "~0.5.17"
+  },
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coreybutler/node-linux.git"
+  },
+  "license": "MIT"
+}
