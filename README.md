@@ -16,22 +16,24 @@ node-linux has a utility to run Node.js scripts as Linux daemons.
 
 To create a service with node-linux, prepare a script like:
 
-    var Service = require('node-linux').Service;
+```js
+  var Service = require('node-linux').Service;
 
-    // Create a new service object
-    var svc = new Service({
-      name:'Hello World',
-      description: 'The nodejs.org example web server.',
-      script: '/path/to/helloworld.js'
-    });
+  // Create a new service object
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js'
+  });
 
-    // Listen for the "install" event, which indicates the
-    // process is available as a service.
-    svc.on('install',function(){
-      svc.start();
-    });
+  // Listen for the "install" event, which indicates the
+  // process is available as a service.
+  svc.on('install',function(){
+    svc.start();
+  });
 
-    svc.install();
+  svc.install();
+```
 
 The code above creates a new `Service` object, providing a pretty name and description.
 The `script` attribute identifies the Node.js script that should run as a service. Upon running
@@ -63,52 +65,58 @@ logs are available (default is in /var/log).
 
 Sometimes you may want to provide a service with static data, passed in on creation of the service. You can do this by setting environment variables in the service config, as shown below:
 
-    var svc = new Service({
-      name:'Hello World',
-      description: 'The nodejs.org example web server.',
-      script: '/path/to/helloworld.js',
-      env: {
-        name: "HOME",
-        value: process.env["USERPROFILE"] // service is now able to access the user who created its' home directory
-      }
-    });
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    env: {
+      name: "HOME",
+      value: process.env["USERPROFILE"] // service is now able to access the user who created its' home directory
+    }
+  });
+```
 
 You can also supply an array to set multiple environment variables:
 
-    var svc = new Service({
-      name:'Hello World',
-      description: 'The nodejs.org example web server.',
-      script: '/path/to/helloworld.js',
-      env: [{
-        name: "HOME",
-        value: process.env["USERPROFILE"] // service is now able to access the user who created its' home directory
-      },
-      {
-        name: "TEMP",
-        value: path.join(process.env["USERPROFILE"],"/temp") // use a temp directory in user's home directory
-      }]
-    });
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    env: [{
+      name: "HOME",
+      value: process.env["USERPROFILE"] // service is now able to access the user who created its' home directory
+    },
+    {
+      name: "TEMP",
+      value: path.join(process.env["USERPROFILE"],"/temp") // use a temp directory in user's home directory
+    }]
+  });
+```
 
 ## Cleaning Up: Uninstall a Service
 
 Uninstalling a previously created service is syntactically similar to installation.
 
-    var Service = require('node-linux').Service;
+```js
+  var Service = require('node-linux').Service;
 
-    // Create a new service object
-    var svc = new Service({
-      name:'Hello World',
-      script: require('path').join(__dirname,'helloworld.js')
-    });
+  // Create a new service object
+  var svc = new Service({
+    name:'Hello World',
+    script: require('path').join(__dirname,'helloworld.js')
+  });
 
-    // Listen for the "uninstall" event so we know when it's done.
-    svc.on('uninstall',function(){
-      console.log('Uninstall complete.');
-      console.log('The service exists: ',svc.exists);
-    });
+  // Listen for the "uninstall" event so we know when it's done.
+  svc.on('uninstall',function(){
+    console.log('Uninstall complete.');
+    console.log('The service exists: ',svc.exists);
+  });
 
-    // Uninstall the service.
-    svc.uninstall();
+  // Uninstall the service.
+  svc.uninstall();
+```
 
 The uninstall process only removes process-specific files. **It does NOT delete your Node.js script, but it will remove the logs!**
 
@@ -134,13 +142,15 @@ The second occurs after 1.25 seconds. The third after 1.56 seconds (1.25 increas
 Both the initial wait time and the growth rate are configuration options that can be passed to a new
 `Service`. For example:
 
-    var svc = new Service({
-      name:'Hello World',
-      description: 'The nodejs.org example web server.',
-      script: '/path/to/helloworld.js'),
-      wait: 2,
-      grow: .5
-    });
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js'),
+    wait: 2,
+    grow: .5
+  });
+```
 
 In this example, the wait period will start at 2 seconds and increase by 50%. So, the second attempt
 would be 3 seconds later while the fourth would be 4.5 seconds later.
