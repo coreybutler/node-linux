@@ -1,5 +1,7 @@
+[![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
+
 # node-linux
 
-Create native background daemons on Linux systems.
+Still a work in progress.
 
-Currently being built.
+Documentation is available at the [node-linux portal](https://coreybutler.github.io/node-linux).
