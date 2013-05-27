@@ -1,0 +1,16 @@
+[{
+  "title": "Node Mac",
+  "items": [{
+    "name": "nodeLinuxService",
+    "title": "Services",
+    "description": "Create Linux daemons from your node.js scripts."
+  },{
+    "name": "linuxtemplates",
+    "title": "Custom Init.d Scripts",
+    "description": "Use your own templates for generating init.d daemons."
+  },{
+    "name": "nodelinuxtroubleshooting",
+    "title": "Troubleshooting",
+    "description": "Having problems? Check here for answers."
+  }]
+}]
