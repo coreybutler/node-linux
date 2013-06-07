@@ -1,6 +1,8 @@
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
 
-Still a work in progress.
+**Contributions Requested**
+
+(see below)
 
 Documentation is available at the [node-linux portal](https://coreybutler.github.io/node-linux).
 
@@ -181,6 +183,20 @@ when the entire service starts/stops.
 
 By default, any `console.log`, `console.warn`, `console.error` or other output will be made available
 in one of these two files.
+
+# Contributions
+
+Due to some unforeseen life circumstances, I was not able to add all of the features I'd hoped to add
+before releasing this. I'll chip away at them over time, but I would be very interested in community contributions
+in the following areas:
+
+- systemd script generation
+- upstart script generation
+
+I have also added a tag in the issues called `feature request` to keep a running to-do list.
+
+If you are interested in working on one of these features, please get in touch with me before you start to discuss
+the feature.
 
 # License (MIT)
 
