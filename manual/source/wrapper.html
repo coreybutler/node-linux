@@ -71,7 +71,8 @@ var optimist = require('optimist'),
     attempts = 0,
     startTime = null,
     starts = 0,
-    child = null;
+    child = null,
+    forcekill = false;
 
 process.title = argv.t || 'Node.JS Script';
 
@@ -147,6 +148,10 @@ var monitor = function(){
  * A method to start a process.
  */
 var launch = function(){
+
+  if (forcekill){
+    return;
+  }
   //log.info('Starting '+argv.f);
 
   // Set the start time if it's null
@@ -178,12 +183,12 @@ var launch = function(){
     // Monitor the process
     monitor();
   });
+
 };
 
 process.on('exit',function(){
-  if (child.pid){
-    process.kill(child.pid)
-  };
+  forcekill = true;
+  child.kill();
   process.exit();
 });
 
