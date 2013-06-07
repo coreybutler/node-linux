@@ -1,14 +1,7 @@
 #!/bin/bash
 
 # Adapted from https://gist.github.com/peterhost/715255
-# INIT SCRIPT       http://www.debian.org/doc/debian-policy/ch-opersys.html#s-sysvinit
-# INIT-INFO RULES   http://wiki.debian.org/LSBInitScripts
-# INSTALL/REMOVE    http://www.debian-administration.org/articles/28
-# ------------------------------------------------------------------------------
-#  3) copy the renamed/modified script(s) to /etc/init.d
-#     chmod 755,
-#
-#  4) if you wish the Daemon to be lauched at boot / stopped at shutdown :
+#     If you wish the Daemon to be lauched at boot / stopped at shutdown :
 #     INSTALL : update-rc.d scriptname defaults
 #     (UNINSTALL : update-rc.d -f  scriptname remove)
 #
@@ -102,7 +95,7 @@ do_start()
 
   # Return 2 if daemon could not be started
   { start-stop-daemon --start --quiet --chuid $NODEUSER --make-pidfile --pidfile $PIDFILE --background --name $LABEL --exec $DAEMON -- \
-    $DAEMON_ARGS {{wrappercode}} >> "$LOGFILE" 2>&1 </dev/null & } \
+    $DAEMON_ARGS {{{wrappercode}}} >> "$LOGFILE" 2>&1 </dev/null & } \
     || { [ "$VERBOSE" != no ] && log_daemon_msg  "  --->  could not be start $DESC" "$INIT_SCRIPT_NAME_NOEXT"; return 2; }
 
   # Add code here, if necessary, that waits for the process to be ready
@@ -137,9 +130,17 @@ do_stop()
   # that waits for the process to drop all resources that could be
   # needed by services started subsequently.  A last resort is to
   # sleep for some time.
-  start-stop-daemon --stop --quiet --oknodo --retry=0/3/KILL/5 --pidfile $PIDFILE  --chuid $NODEUSER --exec $DAEMON -- $DAEMON_ARGS {{wrappercode}}
+  
+  start-stop-daemon --stop --quiet --oknodo --retry=0/3/KILL/5 --pidfile $PIDFILE  --chuid $NODEUSER --exec $DAEMON -- $DAEMON_ARGS {{{wrappercode}}}
   [ "$?" = 2 ] && return 2
 
+  sleep 1
+  
+  # Kill the child process forcibly
+  NODESCRIPT={{{nodescript}}}
+  CPID=`pgrep -f $NODESCRIPT`
+  kill -9 $CPID 
+  
   # Many daemons don't delete their pidfiles when they exit.
   rm -f $PIDFILE
 
@@ -218,6 +219,7 @@ case "$1" in
     2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
   esac
   ;;
+  
   #reload|force-reload)
   #
   # If do_reload() is not implemented then leave this commented out
@@ -228,6 +230,7 @@ case "$1" in
   #log_end_msg $?
   #;;
   restart|force-reload)
+ 
   #
   # If the "reload" option is implemented then remove the
   # 'force-reload' alias

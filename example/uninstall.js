@@ -12,5 +12,9 @@ svc.on('uninstall',function(){
   console.log('The service exists: ',svc.exists);
 });
 
+svc.on('error',function(err){
+  console.log('ERROR:',err);
+})
+
 // Uninstall the service.
 svc.uninstall();

@@ -10,6 +10,7 @@ console.log('Server running at http://127.0.0.1:3000/');
 
 // Force the process to close after 15 seconds
 setTimeout(function(){
-  throw 'A test Error'
+  console.log('Timer hit limit.');
+  //throw 'A test Error'
   //process.exit();
 },25000);

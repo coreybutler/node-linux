@@ -15,7 +15,7 @@ var svc = new Service({
 // process is available as a service.
 svc.on('install',function(){
   console.log('\nInstallation Complete\n---------------------');
-  svc.start();
+  //svc.start();
 });
 
 // Just in case this file is run twice.
