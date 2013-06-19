@@ -2,6 +2,9 @@
 [![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
 [![Build](https://api.travis-ci.org/coreybutler/node-linux.png)](https://travis-ci.org/coreybutler/node-linux)
 
+Follow the author on [G+](https://plus.google.com/u/1/111169756342687497578?rel=author)
+or [Twitter (@goldglovecb)](http://twitter.com/goldglovecb).
+
 **Contributions Requested**
 
 (see below)
