@@ -1,4 +1,6 @@
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
+[![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
+[![Build](https://api.travis-ci.org/coreybutler/node-linux.png)](https://travis-ci.org/coreybutler/node-linux)
 
 **Contributions Requested**
 
@@ -7,6 +9,13 @@
 Documentation is available at the [node-linux portal](https://coreybutler.github.io/node-linux).
 
 # node-linux
+
+This is a standalone module, originally designed for internal use in [NGN](http://github.com/thinkfirst/NGN).
+However; it is capable of providing the same features for Node.JS scripts
+independently of NGN.
+
+For alternative versions, see [node-windows](http://github.com/coreybutler/node-windows)
+and [node-linux](http://github.com/coreybutler/node-linux)
 
 This module makes it possible to daemonize Node.js scripts natively (using systemv init.d scripts).
 
