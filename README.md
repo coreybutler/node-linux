@@ -18,7 +18,7 @@ However; it is capable of providing the same features for Node.JS scripts
 independently of NGN.
 
 For alternative versions, see [node-windows](http://github.com/coreybutler/node-windows)
-and [node-linux](http://github.com/coreybutler/node-linux)
+and [node-mac](http://github.com/coreybutler/node-mac)
 
 This module makes it possible to daemonize Node.js scripts natively (using systemv init.d scripts).
 
