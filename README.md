@@ -109,6 +109,30 @@ You can also supply an array to set multiple environment variables:
   });
 ```
 
+## Arguments and executable path
+
+If you want to pass some arguments to your script, you can specify a string with comma separated values:
+
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    scriptArgs: '-v,filename'
+  });
+```
+
+You can also specify the path of you Node.js executable. It is mostly useful if you want to use a Coffeescript program:
+
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    execPath: '/usr/bin/coffee'
+  });
+```
+
 ## Cleaning Up: Uninstall a Service
 
 Uninstalling a previously created service is syntactically similar to installation.
