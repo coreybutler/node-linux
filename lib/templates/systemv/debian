@@ -71,7 +71,7 @@ SCRIPTNAME=/etc/init.d/$INIT_SCRIPT_NAME
 [ -r /etc/default/$INIT_SCRIPT_NAME ] && . /etc/default/$INIT_SCRIPT_NAME
 
 # Load the VERBOSE setting and other rcS variables
-[ -r /lib/init/vars.sh ]. /lib/init/vars.sh
+[ -r /lib/init/vars.sh ] && . /lib/init/vars.sh
 
 # Define LSB log_* functions.
 
