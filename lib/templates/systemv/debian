@@ -71,7 +71,30 @@ SCRIPTNAME=/etc/init.d/$INIT_SCRIPT_NAME
 [ -r /etc/default/$INIT_SCRIPT_NAME ] && . /etc/default/$INIT_SCRIPT_NAME
 
 # Load the VERBOSE setting and other rcS variables
-. /lib/init/vars.sh
+[ -r /lib/init/vars.sh ]. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+
+# To be replaced by LSB functions
+# Defined here for distributions that don't define
+# log_daemon_msg
+
+log_daemon_msg () {
+    echo $@
+}
+
+# To be replaced by LSB functions
+# Defined here for distributions that don't define
+# log_end_msg
+log_end_msg () {
+    retval=$1
+    if [ $retval -eq 0 ]; then
+        echo "."
+    else
+        echo " failed!"
+    fi
+    return $retval
+}
 
 # Define LSB log_* functions.
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
