@@ -1,6 +1,6 @@
 # Updates
 
-Please note that the extreme delay in updates has been largely [out of my control](http://github.com/coreybutler/node-windows). That said, I anticipate getting back to all of the node-* projects the first week of May.
+Please note that the extreme delay in updates has been largely [out of my control](http://github.com/coreybutler/node-windows#update-21814). That said, I anticipate getting back to all of the node-* projects the first week of May.
 
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
 [![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
