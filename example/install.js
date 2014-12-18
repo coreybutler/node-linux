@@ -8,7 +8,9 @@ var svc = new Service({
   env:{
     name: "NODE_ENV",
     value: "production"
-  }
+  },
+  user:"vagrant",
+  group:"vagrant"
 });
 
 // Listen for the "install" event, which indicates the

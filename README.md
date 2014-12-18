@@ -1,28 +1,10 @@
-# Updates
+# Fork
 
-Please note that the extreme delay in updates has been largely [out of my control](http://github.com/coreybutler/node-windows#update-21814). That said, I anticipate getting back to all of the node-* projects the first week of May.
+This is a fork from [node-linux](http://github.com/coreybutler/node-linux)
 
-[![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
-[![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
-[![Build](https://api.travis-ci.org/coreybutler/node-linux.png)](https://travis-ci.org/coreybutler/node-linux)
-
-Follow the author on [G+](https://plus.google.com/u/1/111169756342687497578?rel=author)
-or [Twitter (@goldglovecb)](http://twitter.com/goldglovecb).
-
-**Contributions Requested**
-
-(see below)
-
-Documentation is available at the [node-linux portal](https://coreybutler.github.io/node-linux).
+ - Setting User/Group support added
 
 # node-linux
-
-This is a standalone module, originally designed for internal use in [NGN](http://github.com/thinkfirst/NGN).
-However; it is capable of providing the same features for Node.JS scripts
-independently of NGN.
-
-For alternative versions, see [node-windows](http://github.com/coreybutler/node-windows)
-and [node-mac](http://github.com/coreybutler/node-mac)
 
 This module makes it possible to daemonize Node.js scripts natively (using systemv init.d scripts).
 
@@ -58,8 +40,6 @@ The `script` attribute identifies the Node.js script that should run as a servic
 this, the script will be available to the system. By default, node-linux produces systemv init
 scripts, meaning the services can be managed by typing `service myapp start` or `service myapp stop`
 (or `service myapp status` in some cases).
-
-![Windows Mac](https://raw.github.com/coreybutler/node-linux/master/docs/assets/images/startstopstatus.jpg)
 
 The `Service` object emits the following events:
 
@@ -112,6 +92,22 @@ You can also supply an array to set multiple environment variables:
     }]
   });
 ```
+
+## Setting run as user/group
+
+By default your node service will run as root:root. You may not want that.
+Just pass the requested user/group values at startup
+
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    user: "vagrant",
+    group: "vagrant"
+  });
+```
+
 
 ## Cleaning Up: Uninstall a Service
 
@@ -194,17 +190,12 @@ generated in `/var/log/<name>` for general output and error logging.
 
 _Event Logging_
 
-A log source named `myappname.log` provides basic logging for the service. It can be used to see
-when the entire service starts/stops.
-
-By default, any `console.log`, `console.warn`, `console.error` or other output will be made available
-in one of these two files.
+The node app stdout stream is redirected automatically to `myappname.log`
+The node app stderr stream is redirected automatically to `myappname-err.log`
 
 # Contributions
 
-Due to some unforeseen life circumstances, I was not able to add all of the features I'd hoped to add
-before releasing this. I'll chip away at them over time, but I would be very interested in community contributions
-in the following areas:
+Contributions are welcome in the following areas:
 
 - systemd script generation
 - upstart script generation
