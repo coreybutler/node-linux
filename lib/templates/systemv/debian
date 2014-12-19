@@ -33,7 +33,7 @@ DAEMON={{execpath}}                     # this SHOULD POINT TO where your node e
 
 LABEL={{label}}
 LOGFILE={{logroot}}/$LABEL.log # Logfile path
-ERRFILE={{logroot}}/$LABEL.err # Error file path
+ERRFILE={{logroot}}/$LABEL-error.log # Error file path
 
 # ______________________________________________________________________________
 
