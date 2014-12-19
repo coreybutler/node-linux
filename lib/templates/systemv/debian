@@ -207,7 +207,6 @@ running() {
   fi
 }
 
-
 case "$1" in
   start)
   [ "$VERBOSE" != no ] && log_daemon_msg "Starting $INIT_SCRIPT_NAME_NOEXT"
