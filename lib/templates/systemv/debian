@@ -164,7 +164,7 @@ do_reload() {
   # restarting (for example, when it is sent a SIGHUP),
   # then implement that here.
   #
-  start-stop-daemon --stop --quiet --signal SIGHUP --pidfile $PIDFILE  --chuid $NODEUSER --name $LABEL --exec node
+  start-stop-daemon --stop --quiet --signal 1 --pidfile $PIDFILE  --chuid $NODEUSER --name $LABEL
   return 0
 }
 
