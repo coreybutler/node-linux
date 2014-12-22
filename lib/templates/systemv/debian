@@ -226,12 +226,12 @@ case "$1" in
   esac
   ;;
   
-  #reload|force-reload)
+  reload)
   #
   # If do_reload() is not implemented then leave this commented out
   # and leave 'force-reload' as an alias for 'restart'.
   #
-  log_daemon_msg "Reloading $INIT_SCRIPT_NAME_NOEXT..."
+  log_daemon_msg "Reloading $INIT_SCRIPT_NAME_NOEXT"
   do_reload
   log_end_msg $?
   ;;
