@@ -26,14 +26,15 @@ DESC="{{description}}"                  # whatever fancy description you like
 NODEUSER={{user}}:{{group}}             # USER who OWNS the daemon process (no matter whoever runs the init script)
                                         # user:group (if no group is specified, the primary GID for that user is used)
 
-LOCAL_VAR_RUN=/usr/local/var/run        # In case the init script is run by non-root user, you need to
+LOCAL_VAR_RUN=/var/run                  # In case the init script is run by non-root user, you need to
                                         # indicate a directory writeable by $NODEUSER to store the PID file
 
 DAEMON={{execpath}}                     # this SHOULD POINT TO where your node executable is
 
 LABEL={{label}}
-LOGFILE={{logroot}}/$LABEL.log       # Logfile path
+LOGFILE={{logroot}}/$LABEL.log # Logfile path
 ERRFILE={{logroot}}/$LABEL-error.log # Error file path
+
 
 # ______________________________________________________________________________
 
@@ -53,12 +54,17 @@ if [ ! -a $ERRFILE ];then
   touch $ERRFILE;
 fi
 
+# Make sure the log and error files are both writable by the target node user
+chown $NODEUSER $LOGFILE;
+chown $NODEUSER $ERRFILE;
+
+
 [ $UID -eq "0" ] && LOCAL_VAR_RUN=/var/run # in case this script is run by root, override user setting
 THIS_ARG=$0
 INIT_SCRIPT_NAME=`basename $THIS_ARG`
 [ -h $THIS_ARG ] && INIT_SCRIPT_NAME=`basename $(readlink $THIS_ARG)` # in case of symlink
-INIT_SCRIPT_NAME_NOEXT=${INIT_SCRIPT_NAME%.*)
-#PIDFILE="$LOCAL_VAR_RUN/$INIT_SCRIPT_NAME_NOEXT.pid"
+INIT_SCRIPT_NAME_NOEXT=${INIT_SCRIPT_NAME%.*}
+PIDFILE="$LOCAL_VAR_RUN/$INIT_SCRIPT_NAME_NOEXT.pid"
 SCRIPTNAME=/etc/init.d/$INIT_SCRIPT_NAME
 
 # Exit if the package is not installed
@@ -95,7 +101,7 @@ do_start()
 
   # Return 2 if daemon could not be started
   { start-stop-daemon --start --quiet --chuid $NODEUSER --make-pidfile --pidfile $PIDFILE --background --name $LABEL --exec $DAEMON -- \
-    $DAEMON_ARGS {{{wrappercode}}} >> "$LOGFILE" 2>&1 </dev/null & } \
+    $DAEMON_ARGS {{{wrappercode}}} & } \
     || { [ "$VERBOSE" != no ] && log_daemon_msg  "  --->  could not be start $DESC" "$INIT_SCRIPT_NAME_NOEXT"; return 2; }
 
   # Add code here, if necessary, that waits for the process to be ready
@@ -118,7 +124,7 @@ do_stop()
   #   2 if daemon could not be stopped
   #   other if a failure occurred
   
-  start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --chuid $NODEUSER --name $DAEMON
+  start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --chuid $NODEUSER --name $LABEL
   RETVAL="$?"
   
   #[ "$VERBOSE" != no ] && [ "$RETVAL" = 1 ] && log_daemon_msg  "  --->  SIGKILL failed => hardkill $DESC" "$INIT_SCRIPT_NAME_NOEXT"
@@ -144,8 +150,8 @@ do_stop()
   # Many daemons don't delete their pidfiles when they exit.
   rm -f $PIDFILE
 
-  #[ "$VERBOSE" != no ] && [ "$RETVAL" = 1 ] && log_daemon_msg "  --->  $DESC not running" "$INIT_SCRIPT_NAME_NOEXT"
-  #[ "$VERBOSE" != no -a "$RETVAL" = 0 ] && log_daemon_msg "  --->  $DESC stopped" "$INIT_SCRIPT_NAME_NOEXT"
+  [ "$VERBOSE" != no ] && [ "$RETVAL" = 1 ] && log_daemon_msg "  --->  $INIT_SCRIPT_NAME_NOEXT - $DESC not running"
+  [ "$VERBOSE" != no -a "$RETVAL" = 0 ] && log_daemon_msg "  --->  $INIT_SCRIPT_NAME_NOEXT - $DESC stopped"
   return "$RETVAL"
 }
 
@@ -158,7 +164,7 @@ do_reload() {
   # restarting (for example, when it is sent a SIGHUP),
   # then implement that here.
   #
-  start-stop-daemon --stop --quiet --signal 1 --pidfile $PIDFILE  --chuid $NODEUSER --name $LABEL --exec node
+  start-stop-daemon --stop --quiet --signal 1 --pidfile $PIDFILE  --chuid $NODEUSER --name $LABEL
   return 0
 }
 
@@ -220,15 +226,16 @@ case "$1" in
   esac
   ;;
   
-  #reload|force-reload)
+  reload)
   #
   # If do_reload() is not implemented then leave this commented out
   # and leave 'force-reload' as an alias for 'restart'.
   #
-  #log_daemon_msg "Reloading $DESC" "$NAME"
-  #do_reload
-  #log_end_msg $?
-  #;;
+  log_daemon_msg "Reloading $INIT_SCRIPT_NAME_NOEXT"
+  do_reload
+  log_end_msg $?
+  ;;
+
   restart|force-reload)
  
   #
@@ -256,8 +263,8 @@ case "$1" in
     do_status
   ;;
   *)
-  #echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
-  echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
+  echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+  #echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
   exit 3
   ;;
 esac

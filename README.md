@@ -113,6 +113,21 @@ You can also supply an array to set multiple environment variables:
   });
 ```
 
+## Setting run as user/group
+
+By default your node service will run as root:root. You may not want that.
+Just pass the requested user/group values at startup
+
+```js
+  var svc = new Service({
+    name:'Hello World',
+    description: 'The nodejs.org example web server.',
+    script: '/path/to/helloworld.js',
+    user: "vagrant",
+    group: "vagrant"
+  });
+```
+
 ## Cleaning Up: Uninstall a Service
 
 Uninstalling a previously created service is syntactically similar to installation.
