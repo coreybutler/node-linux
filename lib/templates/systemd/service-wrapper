@@ -1,0 +1,10 @@
+[Unit]
+Description={{description}}
+
+[Service]
+ExecStart={{execpath}} {{script}} {{{wrappercode}}}
+Restart=always
+SyslogIdentifier={{label}}
+
+[Install]
+WantedBy=multi-user.target
