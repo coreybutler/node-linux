@@ -21,7 +21,7 @@ LOCK_FILE=/var/lock/subsys/node-daemon-$LABEL
 do_start()
 {
   if [ ! -f "$LOCK_FILE" ] ; then
-    $DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null &
+    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}}" >> $LOG_FILE 2>&1 </dev/null &
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $LOCK_FILE
@@ -36,7 +36,7 @@ do_stop()
 {
   echo -n $"Stopping $LABEL: "
   PID=`pgrep -f "$LABEL"`
-  kill -9 $PID > /dev/null &
+  kill $PID > /dev/null &
   if [ -f ${LOCK_FILE} ]; then
     rm $LOCK_FILE
   fi
