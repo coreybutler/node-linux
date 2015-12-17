@@ -9,7 +9,7 @@
 . /etc/rc.d/init.d/functions
 
 PIDFILE="{{pidroot}}/{{label}}.pid"
-ps -fe | grep "{{label}}" | head -n1 | cut -d" " -f 6 > ${PIDFILE}
+#ps -fe | grep "{{label}}" | head -n1 | cut -d" " -f 6 > ${PIDFILE}
 
 USER={{user}}
 DAEMON={{execpath}}
@@ -21,9 +21,8 @@ LOCK_FILE=/var/lock/subsys/node-daemon-$LABEL
 do_start()
 {
   if [ ! -f "$LOCK_FILE" ] ; then
-    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}}" >> $LOG_FILE 2>&1 </dev/null &
+    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null &"
     RETVAL=$?
-    echo
     [ $RETVAL -eq 0 ] && touch $LOCK_FILE
   else
     echo "$LABEL is locked with $LOCK_FILE."
