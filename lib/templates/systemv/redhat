@@ -37,7 +37,7 @@ do_stop()
   PID=`pgrep -f "$LABEL"`
   kill $PID > /dev/null &
   if [ -f ${LOCK_FILE} ]; then
-    rm $LOCK_FILE
+    rm ${LOCK_FILE}
   fi
   if [ -f ${PIDFILE} ]; then
     rm ${PIDFILE}
