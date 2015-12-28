@@ -21,7 +21,7 @@ LOCK_FILE=/var/lock/subsys/node-daemon-$LABEL
 do_start()
 {
   if [ ! -f "$LOCK_FILE" ] ; then
-    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null &"
+    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null & echo \$!"  > ${PIDFILE}
     RETVAL=$?
     [ $RETVAL -eq 0 ] && touch $LOCK_FILE
   else
@@ -57,8 +57,23 @@ case "$1" in
     do_stop
     do_start
     ;;
+  status)
+    running="no"
+    if [ -f ${PIDFILE} ]; then
+      PID=$(cat ${PIDFILE})
+      if [ -x /proc/${PID} ]; then
+        running="yes"
+      fi
+    fi
+
+    if [ "${running}" == "yes" ]; then
+      echo "${LABEL} is running ($PID)"
+    else
+      echo "${LABEL} is not running"
+    fi
+    ;;
   *)
-    echo "Usage: $0 {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart|status}"
     RETVAL=1
 esac
 
