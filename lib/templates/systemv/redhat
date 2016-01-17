@@ -9,7 +9,7 @@
 . /etc/rc.d/init.d/functions
 
 PIDFILE="{{pidroot}}/{{label}}.pid"
-ps -fe | grep "{{label}}" | head -n1 | cut -d" " -f 6 > ${PIDFILE}
+#ps -fe | grep "{{label}}" | head -n1 | cut -d" " -f 6 > ${PIDFILE}
 
 USER={{user}}
 DAEMON={{execpath}}
@@ -20,13 +20,12 @@ LOCK_FILE=/var/lock/subsys/node-daemon-$LABEL
 
 do_start()
 {
-  if [ ! -f "$LOCK_FILE" ] ; then
-    $DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null &
+  if [ ! -f "${LOCK_FILE}" ] ; then
+    su - ${USER} -s /bin/sh -c "$DAEMON $SCRIPT {{{wrappercode}}} >> $LOG_FILE 2>&1 </dev/null & echo \$!"  > ${PIDFILE}
     RETVAL=$?
-    echo
-    [ $RETVAL -eq 0 ] && touch $LOCK_FILE
+    [ $RETVAL -eq 0 ] && touch ${LOCK_FILE}
   else
-    echo "$LABEL is locked with $LOCK_FILE."
+    echo "$LABEL is locked with ${LOCK_FILE}."
     RETVAL=1
   fi
   [ $RETVAL -eq 0 ] && echo_success || echo_failure
@@ -34,16 +33,17 @@ do_start()
 
 do_stop()
 {
-  echo -n $"Stopping $LABEL: "
-  PID=`pgrep -f "$LABEL"`
-  kill -9 $PID > /dev/null &
-  if [ -f ${LOCK_FILE} ]; then
-    rm $LOCK_FILE
+  echo -n "Stopping $LABEL:"
+  PID=`cat ${PIDFILE}`
+  kill $PID > /dev/null
+  if [ -f ${LOCK_FILE} ] ; then
+    rm ${LOCK_FILE}
   fi
-  if [ -f ${PIDFILE} ]; then
+  if [ -f ${PIDFILE} ] ; then
     rm ${PIDFILE}
   fi
   RETVAL=$?
+  echo
   [ $RETVAL -eq 0 ] && echo_success || echo_failure
 }
 
@@ -58,8 +58,23 @@ case "$1" in
     do_stop
     do_start
     ;;
+  status)
+    running="no"
+    if [ -f ${PIDFILE} ]; then
+      PID=$(cat ${PIDFILE})
+      if [ -x /proc/${PID} ]; then
+        running="yes"
+      fi
+    fi
+
+    if [ "${running}" == "yes" ]; then
+      echo "${LABEL} is running ($PID)"
+    else
+      echo "${LABEL} is not running"
+    fi
+    ;;
   *)
-    echo "Usage: $0 {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart|status}"
     RETVAL=1
 esac
 
