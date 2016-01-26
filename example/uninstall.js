@@ -9,7 +9,7 @@ var svc = new Service({
 // Listen for the "uninstall" event so we know when it's done.
 svc.on('uninstall',function(){
   console.log('Uninstall complete.');
-  console.log('The service exists: ',svc.exists);
+  console.log('The service exists: ',svc.exists());
 });
 
 svc.on('error',function(err){
