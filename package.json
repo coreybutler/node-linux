@@ -1,6 +1,6 @@
 {
   "name": "node-linux",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Support daemon creation and management on Linux.",
   "keywords": [
     "ngn",
