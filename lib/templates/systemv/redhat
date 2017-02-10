@@ -36,6 +36,8 @@ do_stop()
   echo -n "Stopping $LABEL:"
   PID=`cat ${PIDFILE}`
   kill $PID > /dev/null
+  # wait for process to exit
+  while kill -0 $PID 2>/dev/null; do sleep 1;done;
   if [ -f ${LOCK_FILE} ] ; then
     rm ${LOCK_FILE}
   fi
