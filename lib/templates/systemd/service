@@ -8,6 +8,12 @@ SyslogIdentifier={{label}}
 User={{user}}
 Group={{group}}
 Environment={{env}}
+{{#stopparentfirst}}
+KillMode=process
+{{/stopparentfirst}}
+{{#stoptimeout}}
+TimeoutStopSec={{stoptimeout}}
+{{/stoptimeout}}
 
 [Install]
 WantedBy=multi-user.target
