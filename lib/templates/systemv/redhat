@@ -36,8 +36,16 @@ do_stop()
   echo -n "Stopping $LABEL:"
   PID=`cat ${PIDFILE}`
   kill $PID > /dev/null
+  TIMEOUT={{stoptimeout}}
   # wait for process to exit
-  while kill -0 $PID 2>/dev/null; do sleep 1;done;
+  # if waiting longer than the timeout send a SIGKILL
+  while kill -0 $PID 2>/dev/null; do 
+    if [ $TIMEOUT -lte 0 ]; then
+      kill -9 $PID
+    fi
+    sleep 1;
+    ((TIMEOUT--));
+  done;
   if [ -f ${LOCK_FILE} ] ; then
     rm ${LOCK_FILE}
   fi
