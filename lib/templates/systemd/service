@@ -2,6 +2,7 @@
 Description={{description}}
 
 [Service]
+WorkingDirectory={{cwd}}
 ExecStart={{execpath}} {{nodescript}}
 Restart=always
 SyslogIdentifier={{label}}
