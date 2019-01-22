@@ -1,6 +1,6 @@
 {
   "name": "node-linux",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Support daemon creation and management on Linux.",
   "keywords": [
     "ngn",
@@ -33,5 +33,5 @@
     "url": "git://github.com/coreybutler/node-linux.git"
   },
   "license": "MIT",
-  "engine":"node >= 0.10.10"
+  "engine": "node >= 0.10.10"
 }
