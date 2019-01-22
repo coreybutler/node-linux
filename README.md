@@ -1,6 +1,13 @@
-# Updates
+# node-linux
 
-**Seeking new maintainer***: Unfortunately, I no longer have enough time to maintain this project.
+I no longer have enough time to properly maintain this project and am seeking a new primary maintainer.
+
+This project has gained traction for two reasons:
+
+1. It works well on Linux.
+1. The same API can be used on macOS and Windows.
+
+The ideal maintainer would also support or at least closely work with the maintainer of ([node-mac](https://github.com/coreybutler/node-mac) & [node-windows](https://github.com/coreybutler/node-windows)). Please get in touch if you are interested in taking over.
 
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
 [![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
@@ -14,8 +21,6 @@ or [Twitter (@goldglovecb)](http://twitter.com/goldglovecb).
 (see below)
 
 Documentation is available at the [node-linux portal](https://coreybutler.github.io/node-linux).
-
-# node-linux
 
 This is a standalone module, originally designed for internal use in [NGN](http://github.com/thinkfirst/NGN).
 However; it is capable of providing the same features for Node.JS scripts
