@@ -34,7 +34,7 @@ DAEMON={{execpath}}                     # this SHOULD POINT TO where your node e
 LABEL={{label}}
 LOGFILE={{logroot}}/$LABEL.log # Logfile path
 ERRFILE={{logroot}}/$LABEL-error.log # Error file path
-
+HOME={{path}} # working directory for process
 
 # ______________________________________________________________________________
 
@@ -119,11 +119,11 @@ PIDFILE={{pidroot}}/$INIT_SCRIPT_NAME_NOEXT.pid
 do_start()
 {
   # Return 1 if daemon was already running
-  start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid $NODEUSER --background --exec $DAEMON --name $LABEL --test > /dev/null \
+  start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid $NODEUSER --chdir $HOME --background --exec $DAEMON --name $LABEL --test > /dev/null \
     || { [ "$VERBOSE" != no ] && log_daemon_msg  "  --->  Daemon already running $DESC" "$INIT_SCRIPT_NAME_NOEXT"; return 1; }
 
   # Return 2 if daemon could not be started
-  { start-stop-daemon --start --quiet --chuid $NODEUSER --make-pidfile --pidfile $PIDFILE --background --name $LABEL --exec $DAEMON -- \
+  { start-stop-daemon --start --quiet --chuid $NODEUSER --chdir $HOME --make-pidfile --pidfile $PIDFILE --background --name $LABEL --exec $DAEMON -- \
     $DAEMON_ARGS {{{wrappercode}}} & } \
     || { [ "$VERBOSE" != no ] && log_daemon_msg  "  --->  could not be start $DESC" "$INIT_SCRIPT_NAME_NOEXT"; return 2; }
 
@@ -225,7 +225,7 @@ do_status() {
 }
 
 running() {
-  RUNSTAT=$(start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid $NODEUSER --background --exec $DAEMON --test > /dev/null)
+  RUNSTAT=$(start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid $NODEUSER --chdir $HOME --background --exec $DAEMON --test > /dev/null)
   if [ "$?" = 1 ]; then
     echo y
   fi
