@@ -17,9 +17,6 @@
     "mocha": "*"
   },
   "main": "lib/node-linux.js",
-  "os": [
-    "linux"
-  ],
   "dependencies": {
     "optimist": "~0.6.1",
     "mu2": "~0.5.20"
