@@ -3,7 +3,7 @@ Description={{description}}
 
 [Service]
 WorkingDirectory={{path}}
-ExecStart={{execpath}} {{nodescript}}
+ExecStart={{execpath}} {{nodescript}} {{fileArgs}}
 Restart=always
 SyslogIdentifier={{label}}
 User={{user}}
