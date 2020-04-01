@@ -1,20 +1,19 @@
 # node-linux
 
-I no longer have enough time to properly maintain this project and am seeking a new primary maintainer.
-
-This project has gained traction for two reasons:
-
-1. It works well on Linux.
-1. The same API can be used on macOS and Windows.
-
-The ideal maintainer would also support or at least closely work with the maintainer of ([node-mac](https://github.com/coreybutler/node-mac) & [node-windows](https://github.com/coreybutler/node-windows)). Please get in touch if you are interested in taking over.
-
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
 [![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
 [![Build](https://api.travis-ci.org/coreybutler/node-linux.png)](https://travis-ci.org/coreybutler/node-linux)
 
-Follow the author on [G+](https://plus.google.com/u/1/111169756342687497578?rel=author)
-or [Twitter (@goldglovecb)](http://twitter.com/goldglovecb).
+**Sponsors (as of 2020)**
+
+<table cellpadding="10" cellspacing="0" border="0">
+  <tr>
+    <td><a href="https://metadoc.io"><img src="https://github.com/coreybutler/staticassets/raw/master/sponsors/metadoclogobig.png" width="200px"/></a></td>
+    <td><a href="https://butlerlogic.com"><img src="https://github.com/coreybutler/staticassets/raw/master/sponsors/butlerlogic_logo.png" width="200px"/></a></td>
+  </tr>
+</table>
+
+Follow the author on [Twitter (@goldglovecb)](http://twitter.com/goldglovecb).
 
 **Contributions Requested**
 
