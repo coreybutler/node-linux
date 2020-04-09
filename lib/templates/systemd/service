@@ -1,5 +1,7 @@
 [Unit]
 Description={{description}}
+Restart=on-failure
+RestartSec=5
 
 [Service]
 WorkingDirectory={{path}}
