@@ -3,6 +3,7 @@
 [![NPM version](https://badge.fury.io/js/node-linux.png)](http://badge.fury.io/js/node-linux)
 [![NGN Dependencies](https://david-dm.org/coreybutler/node-linux.png)](https://david-dm.org/coreybutler/node-linux)
 [![Build](https://api.travis-ci.org/coreybutler/node-linux.png)](https://travis-ci.org/coreybutler/node-linux)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcoreybutler%2Fnode-linux.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcoreybutler%2Fnode-linux?ref=badge_shield)
 
 **Sponsors (as of 2020)**
 
@@ -255,3 +256,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcoreybutler%2Fnode-linux.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcoreybutler%2Fnode-linux?ref=badge_large)
