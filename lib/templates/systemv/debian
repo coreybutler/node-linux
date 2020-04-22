@@ -66,6 +66,7 @@ INIT_SCRIPT_NAME=`basename $THIS_ARG`
 INIT_SCRIPT_NAME_NOEXT=${INIT_SCRIPT_NAME%.*}
 PIDFILE="$LOCAL_VAR_RUN/$INIT_SCRIPT_NAME_NOEXT.pid"
 SCRIPTNAME=/etc/init.d/$INIT_SCRIPT_NAME
+STOPTIMEOUT={{stoptimeout}}
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] ||  { echo "can't find Node.js ($DAEMON)"  >&2; exit 0; }
@@ -147,7 +148,7 @@ do_stop()
   #   2 if daemon could not be stopped
   #   other if a failure occurred
   
-  start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --chuid $NODEUSER --name $LABEL
+  start-stop-daemon --stop --quiet --retry=TERM/$STOPTIMEOUT/KILL/5 --pidfile $PIDFILE --chuid $NODEUSER --name $LABEL
   RETVAL="$?"
   
   #[ "$VERBOSE" != no ] && [ "$RETVAL" = 1 ] && log_daemon_msg  "  --->  SIGKILL failed => hardkill $DESC" "$INIT_SCRIPT_NAME_NOEXT"
